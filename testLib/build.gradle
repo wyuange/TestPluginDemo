@@ -23,21 +23,35 @@ android {
         }
     }
 
+//    uploadArchives {
+//        repositories {
+//            mavenDeployer {
+//                repository(url: maven_local_url) {
+//                    authentication(userName: maven_local_username, password: maven_local_password)
+//                }
+//                pom.project {
+//                    version "1.0.1"
+//                    artifactId maven_pom_artifactId
+//                    groupId maven_pom_groupid
+//                    packaging maven_pom_packaging
+//                    description maven_pom_description
+//                }
+//            }
+//        }
+//    }
+
     uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: maven_local_url) {
-                    authentication(userName: maven_local_username, password: maven_local_password)
-                }
-                pom.project {
-                    version "1.0.1"
-                    artifactId maven_pom_artifactId
-                    groupId maven_pom_groupid
-                    packaging maven_pom_packaging
-                    description maven_pom_description
-                }
+        repositories.mavenDeployer {
+            //maven 本地文件地址
+            def mavenLib = file(getProperty('mavenPath'))
+            repository(url: "file://${mavenLib.absolutePath}")
+            pom.project {
+                version android.defaultConfig.versionName
+                groupId GROUDID
+                artifactId ARTIFACTID
             }
         }
+
     }
 
 
